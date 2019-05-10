@@ -9,25 +9,13 @@
 #include "parser.h"
 #include "Callback.h"
 #include "lodepng.h"
+#include "Filesystem.h"
 using namespace std;
 //***********************************  DEFINES  *******************************************
 #define PATH_AND_THRESHOLD 2
 #define JUST_PATH 1
 //***********************************  FUNCION QUE ESTOY ARMANDO  *******************************************
-list<path>* lookForPNGs(path& dir)
-{
-	list<path>* temp = new list<path>;
-	for (directory_iterator itr(dir); itr != directory_iterator(); itr++)
-	{
-		string tempstr = itr->path().filename().string();
-		if (tempstr.find(".png") == tempstr.length() - 4)
-		{
-			temp->push_back(itr->path());
-			cout << "se encontro un png" << endl;
-		}
-	}
-	return temp;
-}
+
 //***********************************  MAIN  *******************************************
 int main(int argc, const char *argv[])
 {
@@ -38,6 +26,7 @@ int main(int argc, const char *argv[])
 	{
 		cout << "Se recibieron ambas" << endl;
 		list<path>* listaPNGs = lookForPNGs(*(myData.getPath()));
+
 		delete listaPNGs;
 	}
 
