@@ -10,11 +10,15 @@
 #include "Callback.h"
 #include "lodepng.h"
 #include "Filesystem.h"
+#include "Tile.h"
 using namespace std;
 //***********************************  DEFINES  *******************************************
 #define PATH_AND_THRESHOLD 2
 #define JUST_PATH 1
+#define PNG_EXTENSION ".png"
 //***********************************  FUNCION QUE ESTOY ARMANDO  *******************************************
+
+
 
 //***********************************  MAIN  *******************************************
 int main(int argc, const char *argv[])
@@ -25,9 +29,11 @@ int main(int argc, const char *argv[])
 	if (parseResult == PATH_AND_THRESHOLD && myData.isDataFull())	//en este caso se ingresaron ambas variables
 	{
 		cout << "Se recibieron ambas" << endl;
-		list<path>* listaPNGs = lookForFiles(*(myData.getPath()), ".png");
+		list<path>* pngList = lookForFiles(*(myData.getPath()), PNG_EXTENSION);
+		list<Tile>* tileList = generateTileList(*pngList);
 
-		delete listaPNGs;
+		delete pngList;
+		delete tileList;
 	}
 
 	else if (parseResult == JUST_PATH && myData.isPathFull())	//en este caso solamente se ingreso path
