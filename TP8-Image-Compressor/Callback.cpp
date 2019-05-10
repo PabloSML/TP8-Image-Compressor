@@ -15,10 +15,10 @@ int parseCallBack(const char* key, const char* value, void* usrData) //chequea s
 	{
 		if (!strcmp(key, "path"))
 		{
-			path tempPath(value);
-			if (exists(tempPath))
+			path* tempPath = new path(value);
+			if (exists(*tempPath))
 			{
-				if (is_directory(tempPath))
+				if (is_directory(*tempPath))
 				{
 					if (!(myData->setPath(tempPath)))
 					{

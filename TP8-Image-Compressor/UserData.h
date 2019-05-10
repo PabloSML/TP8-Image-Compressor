@@ -17,8 +17,13 @@ public:
 		threshold = EMPTY;
 	}
 
-	path getPath(void);
-	bool setPath(path& usrPath);
+	~userData()
+	{
+		delete usrPath;
+	}
+
+	path* getPath(void);
+	bool setPath(path* usrPath);
 
 	float getThreshold(void);
 	bool setThreshold(float& threshold);

@@ -23,15 +23,15 @@ userData::isPathFull()
 	return pathFull;
 }
 
-path userData::getPath(void) { return *usrPath; }
+path* userData::getPath(void) { return usrPath; }
 
 bool
-userData::setPath(path& usrPath)
+userData::setPath(path* usrPath)
 {
 	bool success = false;
 	if (this->usrPath == EMPTY)
 	{
-		this->usrPath = &usrPath;
+		this->usrPath = usrPath;
 		success = true;
 	}
 	return success;
