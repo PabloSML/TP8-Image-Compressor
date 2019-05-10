@@ -4,4 +4,4 @@
 using namespace std;
 using namespace boost::filesystem;
 
-list<path>* lookForPNGs(path& dir);
+list<path>* lookForFiles(path& dir, const char* fileExtension);

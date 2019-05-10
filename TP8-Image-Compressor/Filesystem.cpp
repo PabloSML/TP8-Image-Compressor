@@ -2,16 +2,16 @@
 #include <string>
 #include "Filesystem.h"
 
-list<path>* lookForPNGs(path& dir)
+list<path>* lookForFiles(path& dir, const char* fileExtension)
 {
 	list<path>* temp = new list<path>;
 	for (directory_iterator itr(dir); itr != directory_iterator(); itr++)
 	{
 		string tempstr = itr->path().filename().string();
-		if (tempstr.find(".png") == tempstr.length() - 4)
+		if (tempstr.find(fileExtension) == tempstr.length() - strlen(fileExtension))
 		{
 			temp->push_back(itr->path());
-			cout << "se encontro un png" << endl;
+			cout << "se encontro un " << fileExtension << endl;
 		}
 	}
 	return temp;

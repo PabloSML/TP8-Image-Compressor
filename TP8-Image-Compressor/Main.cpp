@@ -25,7 +25,7 @@ int main(int argc, const char *argv[])
 	if (parseResult == PATH_AND_THRESHOLD && myData.isDataFull())	//en este caso se ingresaron ambas variables
 	{
 		cout << "Se recibieron ambas" << endl;
-		list<path>* listaPNGs = lookForPNGs(*(myData.getPath()));
+		list<path>* listaPNGs = lookForFiles(*(myData.getPath()), ".png");
 
 		delete listaPNGs;
 	}
