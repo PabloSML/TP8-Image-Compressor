@@ -118,6 +118,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Callback.h" />
+    <ClInclude Include="Compressor.h" />
     <ClInclude Include="Filesystem.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="parser.h" />
@@ -126,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Callback.cpp" />
+    <ClCompile Include="Compressor.cpp" />
     <ClCompile Include="Filesystem.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Main.cpp" />
