@@ -1,6 +1,10 @@
 #include"lodepng.h"
 #include <boost/filesystem.hpp>
 #include <list>
+#include <iostream>
 #include <fstream>
 
-bool compressor(boost::filesystem::path& image, list<boost::filesystem::path> compressed_list, const int threshold);
+using namespace std;
+using namespace boost::filesystem;
+
+bool compress(path& image, const int threshold, list<path>& compressed_list, const char* compressedExtension);

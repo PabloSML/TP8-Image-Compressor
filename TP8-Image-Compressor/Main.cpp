@@ -11,6 +11,7 @@
 #include "lodepng.h"
 #include "Filesystem.h"
 #include "Tile.h"
+#include "Compressor.h"
 using namespace std;
 //***********************************  DEFINES  *******************************************
 #define PATH_AND_THRESHOLD 2
@@ -49,5 +50,18 @@ int main(int argc, const char *argv[])
 	system("pause");
 	return 0;
 }
-
-
+/*PRUEBA PARA COMPRESOR
+int main(void)
+{
+	boost::filesystem::path file = ("C:\\Users\\Agustín M\\source\\repos\\PabloSML\\TP8-Image-Compressor\\descarga.png");
+	list<boost::filesystem::path> lista;
+	if (boost::filesystem::is_regular_file(file))
+	{
+		compress(file, 150, lista, ".mycomp");
+	}
+	else
+	{
+		cout << "not a file" << endl;
+	}
+	return 0;
+}*/
