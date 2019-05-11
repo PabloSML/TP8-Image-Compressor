@@ -42,9 +42,9 @@ int compressor(unsigned char* out, unsigned int w, unsigned int h, const int thr
 	
 	char r=0, g=0, b=0, rprom=0, gprom=0, bprom=0, rmax=0, rmin=0, gmax=0, gmin=0, bmax=0, bmin=0;
 	int pixel_count = 0;
-	for (unsigned int i = wmin; i < w; i++)
+	for (unsigned int i = wmin; i <= w; i++)
 	{			//recorro pixel a pixel el cuadrante
-		for (unsigned int j = hmin; j < h; j++)
+		for (unsigned int j = hmin; j <= h; j++)
 		{
 			//tomo valoresRGB
 			r=out[(i*w) + j];
@@ -103,7 +103,7 @@ int compressor(unsigned char* out, unsigned int w, unsigned int h, const int thr
 		cout << "D" << endl;
 		compressor(out, (w / 2), (h / 2), threshold, output_file, wmin, hmin);	//primer cuadrante
 
-		compressor(out, (w), (h/2), threshold, output_file, w/2, hmin);			//segundo cuadrante
+		compressor(out, (w), (h/2), threshold, output_file, (w/2), hmin);			//segundo cuadrante
 
 		compressor(out, (w / 2), (h), threshold, output_file, wmin, (h/2));		//tercer cuadrante
 
