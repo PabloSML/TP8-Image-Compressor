@@ -4,7 +4,7 @@ using namespace std;
 
 int compress(unsigned char* out, unsigned int w, unsigned int h, const int threshold, boost::filesystem::ofstream& output_file, unsigned int wmin = 0, unsigned int hmin = 0);
 
-bool compressor(boost::filesystem::path& image,  list<boost::filesystem::path> compressed_list, const int threshold)
+bool compressor(path& image,  list<path> compressed_list, const int threshold)
 {
 	unsigned int w, h;
 	unsigned char* out;
@@ -17,7 +17,7 @@ bool compressor(boost::filesystem::path& image,  list<boost::filesystem::path> c
 	}
 	else
 	{
-		boost::filesystem::path out_file;
+		path out_file;
 		boost::filesystem::ofstream output{ out_file };
 		compress(out, w, h, threshold, output);
 		compressed_list.push_back(out_file);
