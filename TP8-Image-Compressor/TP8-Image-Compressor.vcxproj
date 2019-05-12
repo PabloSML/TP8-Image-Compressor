@@ -119,6 +119,8 @@
   <ItemGroup>
     <ClInclude Include="Allegro.h" />
     <ClInclude Include="Callback.h" />
+    <ClInclude Include="Compressor.h" />
+    <ClInclude Include="Decompressor.h" />
     <ClInclude Include="Filesystem.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="parser.h" />
@@ -128,6 +130,8 @@
   <ItemGroup>
     <ClCompile Include="Allegro.cpp" />
     <ClCompile Include="Callback.cpp" />
+    <ClCompile Include="Compressor.cpp" />
+    <ClCompile Include="Decompressor.cpp" />
     <ClCompile Include="Filesystem.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Main.cpp" />

@@ -11,16 +11,20 @@
 #include "lodepng.h"
 #include "Filesystem.h"
 #include "Tile.h"
+#include "Compressor.h"
+#include "Decompressor.h"
 using namespace std;
 //***********************************  DEFINES  *******************************************
 #define PATH_AND_THRESHOLD 2
 #define JUST_PATH 1
 #define PNG_EXTENSION ".png"
+#define EDA_EXTENSION ".eda"
 //***********************************  FUNCION QUE ESTOY ARMANDO  *******************************************
 
 
 
 //***********************************  MAIN  *******************************************
+/*
 int main(int argc, const char *argv[])
 {
 	userData myData;
@@ -39,6 +43,12 @@ int main(int argc, const char *argv[])
 	else if (parseResult == JUST_PATH && myData.isPathFull())	//en este caso solamente se ingreso path
 	{
 		cout << "Se recibio el path" << endl;
+		list<path>* edaList = lookForFiles(*(myData.getPath()), EDA_EXTENSION);
+		list<path>::iterator itr = edaList->begin();
+		path temp = *itr;
+		decompress(temp);
+
+		delete edaList;
 	}
 
 	else // en este caso se encontro un error en el parseo
@@ -48,6 +58,21 @@ int main(int argc, const char *argv[])
 
 	system("pause");
 	return 0;
+}*/
+/*PRUEBA PARA COMPRESOR*/
+
+int main(void)
+{
+	boost::filesystem::path file = ("C:\\Users\\Agustín M\\source\\repos\\PabloSML\\TP8-Image-Compressor\\descarga.png");
+	list<boost::filesystem::path> lista;
+	if (boost::filesystem::is_regular_file(file))
+	{
+		compress(file, 100, lista);
+	}
+	else
+	{
+		cout << "not a file" << endl;
+	}
+	getchar();
+	return 0;
 }
-
-
