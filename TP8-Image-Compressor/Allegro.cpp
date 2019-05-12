@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <iostream>
 
 #include "Allegro.h"
 
@@ -74,7 +75,6 @@ bool Allegro::initAllegro_ok()
 	return init_ok;
 }
 
-
 void Allegro::setDisplayColor(unsigned char r, unsigned char g, unsigned char b)
 {
 	al_clear_to_color(al_map_rgb(r, g, b));
@@ -136,4 +136,19 @@ enum event Allegro::getNextEvent(void)
 		break;
 	}
 	return ev_null;
+}
+
+void Allegro::printText(const char* text, int x, int y, enum align al, ALLEGRO_FONT *al_font)
+{
+	int flag;
+	switch (al)
+	{
+	case center: flag = ALLEGRO_ALIGN_CENTER; break;
+	case right: flag = ALLEGRO_ALIGN_RIGHT; break;
+	case left: flag = ALLEGRO_ALIGN_LEFT; break;
+	default:std::cout << "ERROR: not valid flag in printText." << std::endl;
+	}
+	if (!al_font)
+		al_font = font;
+	al_draw_text(al_font, al_map_rgb(255, 0, 0), x, y, flag, text);
 }

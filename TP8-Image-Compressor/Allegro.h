@@ -7,10 +7,11 @@
 
 #define MAX_DISPLAY_H	2160
 #define MAX_DISPLAY_W	3840
-#define TEXTFONT "textfont.ttf"
+#define TEXTFONT "allegrofiles\\textfont.ttf"
 #define TEXTSIZE 50
 
 enum event {ev_null, ev_quit, ev_tile1, ev_tile2, ev_tile3, ev_tile4,ev_tile5, ev_tile6, ev_tile7, ev_tile8, ev_tile9,ev_enter,ev_mode_comp, ev_mode_decomp};
+enum align {center, right, left};
 
 class Allegro
 {
@@ -23,7 +24,8 @@ public:
 	//metodos especiales
 	void setDisplayColor(unsigned char r, unsigned char g, unsigned char b);
 	void updateDisplay(void);
-	enum event getNextEvent(void);
+	enum event getNextEvent(void); 
+	void printText(const char* text, int x,int y,enum align al, ALLEGRO_FONT * al_font = NULL);
 
 private:
 	ALLEGRO_DISPLAY* display;
