@@ -42,6 +42,9 @@
     <ClInclude Include="Allegro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Pages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Callback.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Allegro.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

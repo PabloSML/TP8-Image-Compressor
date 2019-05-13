@@ -31,6 +31,7 @@ bool compress(path& image, int threshold, list<path>& compressed_list)
 	else
 	{
 		cout << "Threshold must be 0-100 (percent)." << endl;
+		error = true;
 	}
 
 	if (!error)

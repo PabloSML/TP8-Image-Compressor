@@ -36,6 +36,11 @@ int main(int argc, const char *argv[])
 		list<path>* pngList = lookForFiles(*(myData.getPath()), PNG_EXTENSION);
 		list<Tile>* tileList = generateTileList(*pngList);
 
+		list<path>::iterator itr = pngList->begin();
+		path temp = *itr;
+		list<path> dump;
+		compress(temp, myData.getThreshold(), dump);
+
 		delete pngList;
 		delete tileList;
 	}
