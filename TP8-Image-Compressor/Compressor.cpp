@@ -4,7 +4,7 @@
 
 int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold, boost::filesystem::ofstream& output_file, unsigned int wmin = 0, unsigned int hmin = 0);
 
-bool compress(path& image, int threshold, list<path>& compressed_list)
+bool compress(path& image, int threshold)
 {
 	unsigned int w, h;
 	unsigned char* out;
@@ -46,7 +46,7 @@ bool compress(path& image, int threshold, list<path>& compressed_list)
 		else
 		{
 			compressor(out, w, h, threshold, output);				//funcion que comprime
-			compressed_list.push_back(out_file);			//agrego el path a la lista
+			//compressed_list.push_back(out_file);			//agrego el path a la lista
 			ret = true;
 		}
 	}
@@ -108,8 +108,7 @@ int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold
 	}
 
 	//PROMEDIO RGB
-	cout << "rprom " << to_string(rprom) << "\tgrom " << to_string(gprom) << "\tbrom " << to_string(bprom) << endl;
-	cout << "pxels "<<pixel_count << endl;
+	//cout << "pxels "<<pixel_count << endl;
 	rprom = rprom / pixel_count;
 	gprom = gprom / pixel_count;
 	bprom = bprom / pixel_count;
@@ -119,30 +118,34 @@ int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold
 	cout<< "MIN " <<"R " <<to_string(rmin) <<" G "<< to_string(gmin) <<" B "<< to_string(bmin) << endl;
 	int weight= (rmax - rmin) + (gmax - gmin) + (bmax - bmin);
 	
-	cout <<"thres "<< to_string(threshold) <<"/"<<"weight"<< to_string(weight) << endl;
+	//cout <<"thres "<< to_string(threshold) <<" / "<<"weight"<< to_string(weight) << endl;
 	if (weight > threshold)
 	{
 		output_file.put('D');
-		cout << "D" << endl;
-		int new_w = w / 2;
-		int new_h = h / 2;
+		//cout << "D" << endl;
+		
+		int new_w = (w+wmin) / 2;
+		int new_h = (h+hmin) / 2;
+		
+		
+		//cout << "new_h: " << new_h << "  new_w: " << new_w << endl;
 
 		compressor(out, new_w, new_h, threshold, output_file, wmin, hmin);	//primer cuadrante
-
+		//cout << "PRIMER CUADRANTE LISTO" << endl << endl;
 		compressor(out, (w), new_h, threshold, output_file, new_w, hmin);			//segundo cuadrante
-
+		//cout << "SEGUNDO CUADRANTE LISTO" << endl << endl;
 		compressor(out, new_w, (h), threshold, output_file, wmin, new_h);		//tercer cuadrante
-
+		//cout << "TERCER CUADRANTE LISTO" << endl << endl;
 		compressor(out, (w), (h), threshold, output_file, new_w, new_h);		//cuarto cuadrante
-
+		//cout << "CUARTO CUADRANTE LISTO" << endl << endl;
 		return 1;
 	}
 	else
 	{
 		output_file.put('N');
 		output_file << rprom << gprom << bprom;
-		cout << "N" << endl;
-		cout << "rprom " << to_string(rprom) << "\tgrom " << to_string(gprom) << "\tbrom " << to_string(bprom) << endl;
+		//cout << "N" << endl;
+		//cout << "rprom " << to_string(rprom) << "\t grom " << to_string(gprom) << "\t brom " << to_string(bprom) << endl;
 		return 1;
 	}
 }
