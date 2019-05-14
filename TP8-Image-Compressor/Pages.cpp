@@ -105,7 +105,7 @@ void Pages::selectTile(int pos_)
 	}
 	int z = pagenum;
 	int x = pos_ % 3;
-	int y = (pos_ / 3) - 3 * pagenum;
+	int y = pos_ / 3;
 
 	std::list<Tile>::iterator it;
 	for (it = pTile->begin(); it != pTile->end(); ++it)
