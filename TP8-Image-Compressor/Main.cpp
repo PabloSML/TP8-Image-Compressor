@@ -24,7 +24,7 @@ using namespace std;
 
 
 //***********************************  MAIN  *******************************************
-/*
+
 int main(int argc, const char *argv[])
 {
 	userData myData;
@@ -63,9 +63,9 @@ int main(int argc, const char *argv[])
 
 	system("pause");
 	return 0;
-}*/
+}
 /*PRUEBA PARA COMPRESOR*/
-
+/*
 int main(void)
 {
 	boost::filesystem::path file = ("C:\\Users\\Agustín M\\source\\repos\\PabloSML\\TP8-Image-Compressor\\maluposta.png");
@@ -82,4 +82,4 @@ int main(void)
 	cout << "press enter";
 	getchar();
 	return 0;
-}
+}*/
