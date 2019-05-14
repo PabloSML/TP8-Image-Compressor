@@ -4,6 +4,7 @@
 #include <allegro5/allegro_image.h>
 #include <list>
 #include <boost/filesystem.hpp>
+#include "Allegro.h"
 using namespace std;
 using namespace boost::filesystem;
 
@@ -31,7 +32,7 @@ public:
 
 	string getName(void);
 
-	void draw(void);
+	void draw(Allegro* pAllegro, ALLEGRO_BITMAP* image = NULL);
 
 	position GetPos(void);
 
