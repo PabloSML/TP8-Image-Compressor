@@ -33,8 +33,11 @@ public:
 
 	void draw(void);
 
+	position GetPos(void);
+
 private:
 	bool selected;
+	string path;
 	string name;
 	ALLEGRO_BITMAP* image;
 	position pos;

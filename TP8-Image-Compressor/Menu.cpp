@@ -50,6 +50,7 @@ enum menu_modes Menu::GetMode()
 			if (m != unselected)
 				mode = m;
 			done = true;
+			break;
 		}
 
 	}

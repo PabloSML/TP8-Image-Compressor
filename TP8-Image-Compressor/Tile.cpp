@@ -35,6 +35,12 @@ void Tile::draw(void)
 
 }
 
+position Tile::GetPos(void)
+{
+	return pos;
+}
+
+
 //************************************************************ FUNCIONES AUXILIARES ******************
 list<Tile>* generateTileList(list<path>& pathList)	// para tiles de .png
 {
