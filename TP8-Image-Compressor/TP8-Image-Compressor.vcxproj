@@ -71,6 +71,29 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Allegro_AddonImage>true</Allegro_AddonImage>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonAudio>true</Allegro_AddonAudio>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
+    <Allegro_AddonPhysfs>true</Allegro_AddonPhysfs>
+    <Allegro_AddonDialog>true</Allegro_AddonDialog>
+    <Allegro_AddonMemfile>true</Allegro_AddonMemfile>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
+    <Allegro_AddonColor>true</Allegro_AddonColor>
+    <Allegro_AddonVideo>true</Allegro_AddonVideo>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Allegro_AddonImage>true</Allegro_AddonImage>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonAudio>true</Allegro_AddonAudio>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
+    <Allegro_AddonPhysfs>true</Allegro_AddonPhysfs>
+    <Allegro_AddonDialog>true</Allegro_AddonDialog>
+    <Allegro_AddonMemfile>true</Allegro_AddonMemfile>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
+    <Allegro_AddonColor>true</Allegro_AddonColor>
+    <Allegro_AddonVideo>true</Allegro_AddonVideo>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -123,7 +146,6 @@
     <ClInclude Include="Decompressor.h" />
     <ClInclude Include="Filesystem.h" />
     <ClInclude Include="lodepng.h" />
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="Pages.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="Tile.h" />
@@ -137,7 +159,6 @@
     <ClCompile Include="Filesystem.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Pages.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="Tile.cpp" />

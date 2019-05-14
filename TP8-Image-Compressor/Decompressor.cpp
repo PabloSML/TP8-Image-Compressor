@@ -1,15 +1,8 @@
 #include "Decompressor.h"
-#define PIXEL_SIZE 4
 #define NRGB_SIZE 4
-#define ALPHA 0
-#define QUAD_ONE 0
-#define QUAD_TWO 1
-#define QUAD_THREE 2
-#define QUAD_FOUR 3
-/*
-Ejemplo para pensar
-1200DDNRGBNRGBNRGBNRGBNRGBDNRGBDNRGBNRGBNRGBNRGBDNRGBNRGBNRGBNRGBNRGBNRGBNRGBNRGBNRGBNRGBNRGBDNRGBNRGBNRGBNRGB
-*/
+#define ALPHA 128
+
+static bool decompressor(string::iterator& itr, unsigned char* destImg, unsigned int w, unsigned int h, unsigned int wmin, unsigned int hmin, unsigned int side);
 
 bool decompress(path& compressedImg)
 {
@@ -39,10 +32,11 @@ bool decompress(path& compressedImg)
 		beg = end;
 
 		string toDecompress = bufferStr.substr(beg);
+		string::iterator itr = toDecompress.begin();
 
-		unsigned char* image = new unsigned char[side*side*PIXEL_SIZE];
+		unsigned char* image = new unsigned char[side*side*NRGB_SIZE];
 
-		decompressor(toDecompress, image, side, side, 0, 0);
+		decompressor(itr, image, side, side, 0, 0, side);
 
 		lodepng_encode32_file(newName, image, side, side);
 
@@ -53,65 +47,39 @@ bool decompress(path& compressedImg)
 	return success;
 }
 
-bool decompressor(string& toDecompress, unsigned char* destImg, unsigned int w, unsigned int h, unsigned int wmin, unsigned int hmin)
+static bool decompressor(string::iterator& itr, unsigned char* destImg, unsigned int w, unsigned int h, unsigned int wmin, unsigned int hmin, unsigned int side)
 {
-	if (toDecompress[0] == 'N' && toDecompress.length() == NRGB_SIZE) // caso base en caso de ser una imagen de un solo color
+	if (*itr == 'N') // caso base
 	{
-		for (unsigned int i = wmin; i <= w; i++)
+		itr++;
+		unsigned char red = *itr;
+		itr++;
+		unsigned char green = *itr;
+		itr++;
+		unsigned char blue = *itr;
+		itr++;
+		for (unsigned int i = hmin; i < h; i++)
 		{
-			for (unsigned int j = hmin; j <= h; j++)
+			for (unsigned int j = wmin*NRGB_SIZE; j < w*NRGB_SIZE; j += NRGB_SIZE)
 			{
-				destImg[(i*w) + j] = toDecompress[1];		// Red
-				destImg[(i*w) + j + 1] = toDecompress[2];	// Green
-				destImg[(i*w) + j + 2] = toDecompress[3];	// Blue
-				destImg[(i*w) + j + 3] = ALPHA;				// Arbitrary Alpha (0)
+				destImg[(i*side*NRGB_SIZE) + j] = red;		
+				destImg[(i*side*NRGB_SIZE) + j + 1] = green;
+				destImg[(i*side*NRGB_SIZE) + j + 2] = blue;
+				destImg[(i*side*NRGB_SIZE) + j + 3] = ALPHA;	// Arbitrary Alpha (128)
 			}
 		}
 	}
 	else
 	{
-		int pos1 = toDecompress.find_first_of('N');
-		int pos2 = toDecompress.find_first_of('N', pos1 + 1);
-		int pos3 = toDecompress.find_first_of('N', pos2 + 1);
-		int pos4 = toDecompress.find_first_of('N', pos3 + 1);
+		itr++;
+		unsigned int halfW = wmin + ( (w - wmin) / 2);
+		unsigned int halfH = hmin + ((h - hmin) / 2);
 
-		if (pos1 == 0 && pos2 == 4 && pos3 == 8 && pos4 == 12)
-		{
-
-		}
-
+		decompressor(itr, destImg, halfW, halfH, wmin, hmin, side);	// primer cuadrante
+		decompressor(itr, destImg, w, halfH, halfW, hmin, side);		// segundo cuadrante
+		decompressor(itr, destImg, halfW, h, wmin, halfH, side);		// tercer cuadrante
+		decompressor(itr, destImg, w, h, halfW, halfH, side);			// cuarto cuadrante
 	}
+
+	return true;
 }
-
-/*
-		D | N | D | N | N | N | N | N | N
-
-		N R G B | D | N R G B | N R G B | N R G B | N R G B | N R G B | N R G B | N R G B 
-
-		D | D | N R G B | N R G B | N R G B | N R G B | N R G B | N R G B | N R G B
-
-		else if (toDecompress[0] == 'N' && toDecompress.size() == 4 * NRGB_SIZE) // caso base con 4 cuadrantes
-		{
-			unsigned int halfW = w / 2;
-			unsigned int halfH = h / 2;
-
-			fillQuadrant(toDecompress, destImg, halfW, halfH, wmin, hmin, QUAD_ONE);	// primer cuadrante
-			fillQuadrant(toDecompress, destImg, w, halfH, halfW, hmin, QUAD_TWO);	// segundo cuadrante
-			fillQuadrant(toDecompress, destImg, halfW, h, wmin, halfH, QUAD_THREE);	// tercer cuadrante
-			fillQuadrant(toDecompress, destImg, w, h, halfW, halfH, QUAD_FOUR);	// cuarto cuadrante
-		}
-
-		void fillQuadrant(string& toDecompress, unsigned char* destImg, unsigned int w, unsigned int h, unsigned int wmin, unsigned int hmin, unsigned int quadNum)
-		{
-			for (unsigned int i = wmin; i <= w; i++)
-			{
-				for (unsigned int j = hmin; j <= h; j++)
-				{
-					destImg[(i*w) + j] = toDecompress[1 + NRGB_SIZE*quadNum];		// Red
-					destImg[(i*w) + j + 1] = toDecompress[2 + NRGB_SIZE * quadNum];	// Green
-					destImg[(i*w) + j + 2] = toDecompress[3 + NRGB_SIZE * quadNum];	// Blue
-					destImg[(i*w) + j + 3] = ALPHA;				// Arbitrary Alpha (0)
-				}
-			}
-		}
-*/
