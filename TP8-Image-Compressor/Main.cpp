@@ -36,11 +36,18 @@ int main(int argc, const char *argv[])
 		list<path>* pngList = lookForFiles(*(myData.getPath()), PNG_EXTENSION);
 		list<Tile>* tileList = generateTileList(*pngList);
 
-		list<path>::iterator itr = pngList->begin();
-		path temp = *itr;
+		list<path>::iterator itr1 = pngList->begin();
+		path temp1 = *itr1;
 		list<path> dump;
-		compress(temp, myData.getThreshold(), dump);
+		compress(temp1, myData.getThreshold());
 
+		list<path>* edaList = lookForFiles(*(myData.getPath()), EDA_EXTENSION);
+		list<path>::iterator itr2 = edaList->begin();
+		path temp2 = *itr2;
+		decompress(temp2);
+
+
+		delete edaList;
 		delete pngList;
 		delete tileList;
 	}

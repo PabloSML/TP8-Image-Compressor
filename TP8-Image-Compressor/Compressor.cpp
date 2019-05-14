@@ -1,8 +1,6 @@
 #include "Compressor.h"
 
-
-
-int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold, boost::filesystem::ofstream& output_file, unsigned int wmin = 0, unsigned int hmin = 0);
+static int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold, string& output_string, unsigned int wmin, unsigned int hmin, unsigned int side);
 
 bool compress(path& image, int threshold)
 {
@@ -14,7 +12,7 @@ bool compress(path& image, int threshold)
 	
 	if (w != h)			//chequeo imagen cuadrada
 	{
-		cout << "Imagen no es cuadrada" << endl;
+		std::cout << "Imagen no es cuadrada" << std::endl;
 		error= true;
 	}
 	double test = log2(w);
@@ -24,31 +22,18 @@ bool compress(path& image, int threshold)
 		error = true;
 	}
 
-	if (threshold >= 0 || threshold <= 100)
-	{
-		threshold = ((255 * 3)*threshold) / 100;
-	}
-	else
-	{
-		cout << "Threshold must be 0-100 (percent)." << endl;
-		error = true;
-	}
+	threshold = ((255 * 3)*threshold) / 100; // la validez del threshold fue verificada de antemano al ser ingresada por el usuario
 
 	if (!error)
 	{
 		path out_file (image.replace_extension(".eda"));	 //creo el path con nombre "imagen.eda"
 		cout << "Created path to " << out_file.filename() << endl;
-		boost::filesystem::ofstream output{ out_file };		//pongo out_file como output
-		output << w;
-		if (!output.is_open())
+		boost::filesystem::ofstream os(out_file, boost::filesystem::ofstream::binary);
+		if (os)
 		{
-			cout << "No se pudo abrir output file" << endl;
-		}
-		else
-		{
-			compressor(out, w, h, threshold, output);				//funcion que comprime
-			//compressed_list.push_back(out_file);			//agrego el path a la lista
-			ret = true;
+			string output_string = to_string(w);
+			compressor(out, w, h, threshold, output_string, 0, 0, w);	//funcion que comprime
+			os.write(output_string.c_str(), output_string.length());
 		}
 	}
 	else
@@ -59,18 +44,18 @@ bool compress(path& image, int threshold)
 	return ret;
 }
 
-int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold, boost::filesystem::ofstream& output_file, unsigned int wmin, unsigned int hmin)
+static int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold, string& output_string, unsigned int wmin, unsigned int hmin, unsigned int side)
 {
 	unsigned char r=0, g=0, b=0, rmax=0, rmin=255, gmax=0, gmin=255, bmax=0, bmin=255;
 	int pixel_count = 0, rprom = 0, gprom = 0, bprom = 0;
-	for (unsigned int i = wmin; i < w; i++)
+	for (unsigned int i = hmin; i < h; i++)
 	{			//recorro pixel a pixel el cuadrante
-		for (unsigned int j = hmin; j < h; j++)
+		for (unsigned int j = wmin*4; j < w*4; j += 4)
 		{
 			//tomo valoresRGB
-			r=out[(i*w) + j];
-			g=out[(i*w) + j + 1];
-			b=out[(i*w) + j + 2];
+			r=out[(i*side*4) + j];
+			g=out[(i*side*4) + j + 1];
+			b=out[(i*side*4) + j + 2];
 
 			//CHEQUEO MAXIMOS
 			if (r > rmax)
@@ -109,7 +94,6 @@ int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold
 	}
 
 	//PROMEDIO RGB
-	//cout << "pxels "<<pixel_count << endl;
 	rprom = rprom / pixel_count;
 	gprom = gprom / pixel_count;
 	bprom = bprom / pixel_count;
@@ -119,34 +103,27 @@ int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold
 	cout<< "MIN " <<"R " <<to_string(rmin) <<" G "<< to_string(gmin) <<" B "<< to_string(bmin) << endl;
 	int weight= (rmax - rmin) + (gmax - gmin) + (bmax - bmin);
 	
-	//cout <<"thres "<< to_string(threshold) <<" / "<<"weight"<< to_string(weight) << endl;
 	if (weight > threshold)
 	{
-		output_file.put('D');
-		//cout << "D" << endl;
+		output_string.push_back('D');
 		
-		int new_w = (w+wmin) / 2;
-		int new_h = (h+hmin) / 2;
-		
-		
-		//cout << "new_h: " << new_h << "  new_w: " << new_w << endl;
+		int new_w = wmin + ((w - wmin) / 2);
+		int new_h = hmin + ((h - hmin) / 2);
 
-		compressor(out, new_w, new_h, threshold, output_file, wmin, hmin);	//primer cuadrante
-		//cout << "PRIMER CUADRANTE LISTO" << endl << endl;
-		compressor(out, (w), new_h, threshold, output_file, new_w, hmin);			//segundo cuadrante
-		//cout << "SEGUNDO CUADRANTE LISTO" << endl << endl;
-		compressor(out, new_w, (h), threshold, output_file, wmin, new_h);		//tercer cuadrante
-		//cout << "TERCER CUADRANTE LISTO" << endl << endl;
-		compressor(out, (w), (h), threshold, output_file, new_w, new_h);		//cuarto cuadrante
-		//cout << "CUARTO CUADRANTE LISTO" << endl << endl;
-		return 1;
+		compressor(out, new_w, new_h, threshold, output_string, wmin, hmin, side);	//primer cuadrante
+		compressor(out, (w), new_h, threshold, output_string, new_w, hmin, side);			//segundo cuadrante
+		compressor(out, new_w, (h), threshold, output_string, wmin, new_h, side);		//tercer cuadrante
+		compressor(out, (w), (h), threshold, output_string, new_w, new_h, side);		//cuarto cuadrante
+
+		return 0;
 	}
 	else
 	{
-		output_file.put('N');
-		output_file << rprom << gprom << bprom;
-		//cout << "N" << endl;
-		//cout << "rprom " << to_string(rprom) << "\t grom " << to_string(gprom) << "\t brom " << to_string(bprom) << endl;
-		return 1;
+		output_string.push_back('N');
+		output_string.push_back((unsigned char)rprom);
+		output_string.push_back((unsigned char)gprom);
+		output_string.push_back((unsigned char)bprom);
+
+		return 0;
 	}
 }
