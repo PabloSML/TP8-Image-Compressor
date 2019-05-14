@@ -1,29 +1,32 @@
 #include "Compressor.h"
 #define EDA_EXT ".eda"
+#define PIXEL_SIZE 4
+#define MAX_THRESHOLD (255*3)
 
 static int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold, string& output_string, unsigned int wmin, unsigned int hmin, unsigned int side);
 
 bool compress(path& image, int threshold)
 {
-	unsigned int w, h;
-	unsigned char* out;
 	bool ret = false;
+	unsigned int w, h, side;
+	unsigned char* out;
+	threshold = (MAX_THRESHOLD*threshold) / 100; // la validez del threshold fue verificada de antemano al ser ingresada por el usuario
 
 	int error = lodepng_decode32_file(&out, &w, &h, image.string().c_str());		//decode de la imagen
+
+	double test = log2(w);
+	side = w;
 	
 	if (w != h)			//chequeo imagen cuadrada
 	{
 		std::cout << "Imagen no es cuadrada" << std::endl;
 		error= true;
 	}
-	double test = log2(w);
-	if ((int)test != test)			//chequeo lados
+	else if ((int)test != test)			//chequeo lados
 	{
 		cout << "Lados de la imagen deben ser potencia de 2" << endl;
 		error = true;
 	}
-
-	threshold = ((255 * 3)*threshold) / 100; // la validez del threshold fue verificada de antemano al ser ingresada por el usuario
 
 	if (!error)
 	{
@@ -33,7 +36,7 @@ bool compress(path& image, int threshold)
 		if (os)
 		{
 			string output_string = to_string(w);
-			compressor(out, w, h, threshold, output_string, 0, 0, w);	//funcion que comprime
+			compressor(out, w, h, threshold, output_string, 0, 0, side);	//funcion que comprime
 			os.write(output_string.c_str(), output_string.length());
 		}
 	}
@@ -51,12 +54,12 @@ static int compressor(unsigned char* out, unsigned int w, unsigned int h, int th
 	int pixel_count = 0, rprom = 0, gprom = 0, bprom = 0;
 	for (unsigned int i = hmin; i < h; i++)
 	{			//recorro pixel a pixel el cuadrante
-		for (unsigned int j = wmin*4; j < w*4; j += 4)
+		for (unsigned int j = wmin*PIXEL_SIZE; j < w*PIXEL_SIZE; j += PIXEL_SIZE)
 		{
 			//tomo valoresRGB
-			r=out[(i*side*4) + j];
-			g=out[(i*side*4) + j + 1];
-			b=out[(i*side*4) + j + 2];
+			r=out[(i*side*PIXEL_SIZE) + j];
+			g=out[(i*side*PIXEL_SIZE) + j + 1];
+			b=out[(i*side*PIXEL_SIZE) + j + 2];
 
 			//CHEQUEO MAXIMOS
 			if (r > rmax)
