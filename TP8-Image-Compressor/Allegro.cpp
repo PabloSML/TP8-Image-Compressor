@@ -126,6 +126,12 @@ enum al_event Allegro::getNextEvent(void)
 		case ALLEGRO_KEY_9: case ALLEGRO_KEY_PAD_9:
 			return ev_tile9;
 			break;
+		case ALLEGRO_KEY_C:
+			return ev_mode_comp;
+			break;
+		case ALLEGRO_KEY_D:
+			return ev_mode_decomp;
+			break;
 		case ALLEGRO_KEY_A:
 			return ev_all;
 			break;

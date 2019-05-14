@@ -94,11 +94,30 @@ int main(void)
 	return 0;
 }*/
  /*prueba allegro*/
-int main()
+int main(int argc, const char *argv[])
 {
+	userData myData;
+	int parseResult = parseCmdLine(argc, argv, parseCallBack, &myData);
+
 	Allegro al_display;
 	Menu menu(&al_display);
+
+	list<path>* pngList;
+	list<Tile>* tileList;
+	list<path>* edaList;
+	list<Tile>* edatileList;
+
 	std::cout << menu.GetMode() << std::endl;
+	enum menu_modes mode = menu.GetMode();
+	if (mode == mode_compress)
+	{
+		pngList = lookForFiles(*(myData.getPath()), PNG_EXTENSION);
+		tileList = generateTileList(*pngList);
+	}
+	else if (mode == mode_decompress)
+	{
+		 lookForFiles(*(myData.getPath()), EDA_EXTENSION);
+	}
 
 	getchar();
 }
