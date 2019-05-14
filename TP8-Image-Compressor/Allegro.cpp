@@ -5,6 +5,7 @@
 
 #include "Allegro.h"
 
+
 Allegro::Allegro(unsigned int w,unsigned int h)
 {
 	display_w = w;
@@ -86,7 +87,7 @@ void Allegro::updateDisplay(void)
 }
 
 //falta validar a posicion del mouse
-enum event Allegro::getNextEvent(void)
+enum al_event Allegro::getNextEvent(void)
 {
 	ALLEGRO_EVENT ev;
 	al_get_next_event(event_queue, &ev);
@@ -125,14 +126,31 @@ enum event Allegro::getNextEvent(void)
 		case ALLEGRO_KEY_9: case ALLEGRO_KEY_PAD_9:
 			return ev_tile9;
 			break;
+		case ALLEGRO_KEY_A:
+			return ev_all;
+			break;
+		case ALLEGRO_KEY_N:
+			return ev_none;
+			break;
 		case ALLEGRO_KEY_Q:
 			return ev_quit;
 			break;
 		case ALLEGRO_KEY_ENTER:
 			return ev_enter;
 			break;
+		case ALLEGRO_KEY_RIGHT:
+			return ev_right;
+			break;
+		case ALLEGRO_KEY_LEFT:
+			return ev_left;
+			break;
 		}
 		return ev_null;
+		break;
+	case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+		pos.x = ev.mouse.x;
+		pos.y = ev.mouse.y;
+		return ev_mouse;
 		break;
 	}
 	return ev_null;
@@ -151,4 +169,31 @@ void Allegro::printText(const char* text, int x, int y, enum align al, ALLEGRO_F
 	if (!al_font)
 		al_font = font;
 	al_draw_text(al_font, al_map_rgb(255, 0, 0), x, y, flag, text);
+}
+
+unsigned int Allegro::GetDisplayW()
+{
+	return display_w;
+}
+
+unsigned int Allegro::GetDisplayH()
+{
+	return display_h;
+}
+
+void Allegro::drawImage(ALLEGRO_BITMAP* image, int x, int y, int scale_x = 0, int scale_y = 0)
+{
+	if ((scale_x <= 0) || (scale_y <= 0))
+	{
+		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), x, y, al_get_bitmap_width(image), al_get_bitmap_height(image), 0);
+	}
+	else
+	{
+		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), x, y, al_get_bitmap_width(image)*scale_x, al_get_bitmap_width(image)*scale_y, 0);
+	}
+}
+
+display_pos Allegro::GetMousePos()
+{
+	return pos;
 }
