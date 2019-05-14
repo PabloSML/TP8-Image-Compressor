@@ -34,22 +34,24 @@ int main(int argc, const char *argv[])
 	{
 		cout << "Se recibieron ambas" << endl;
 		list<path>* pngList = lookForFiles(*(myData.getPath()), PNG_EXTENSION);
-		list<Tile>* tileList = generateTileList(*pngList);
+		list<Tile>* pngTileList = generateTileList(*pngList);
 
-		for (path t : *pngList)
+		/*for (path t : *pngList)
 		{
 			compress(t, myData.getThreshold());
-		}
+		}*/
 
 		list<path>* edaList = lookForFiles(*(myData.getPath()), EDA_EXTENSION);
-		for (path t : *edaList)
+		/*for (path t : *edaList)
 		{
 			decompress(t);
-		}
+		}*/
+		list<Tile>* edaTileList = generateTileList(*edaList, );
 
 		delete edaList;
 		delete pngList;
-		delete tileList;
+		delete pngTileList;
+		delete edaTileList;
 	}
 
 	else if (parseResult == JUST_PATH && myData.isPathFull())	//en este caso solamente se ingreso path
