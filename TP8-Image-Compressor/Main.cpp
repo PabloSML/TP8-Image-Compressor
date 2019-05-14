@@ -2,7 +2,6 @@
 #include <iostream>
 #include <iterator>
 #include <list>
-//#include <algorithm> no se como se usa, puede servir para el Quad Tree
 #include <string>
 #include <boost/filesystem.hpp>
 #include "UserData.h"
@@ -14,6 +13,7 @@
 #include "Tile.h"
 #include "Compressor.h"
 #include "Decompressor.h"
+#include "Pages.h"
 using namespace std;
 //***********************************  DEFINES  *******************************************
 #define PATH_AND_THRESHOLD 2
@@ -35,7 +35,7 @@ int main(int argc, const char *argv[])
 	{
 		cout << "Se recibieron ambas" << endl;
 		list<path>* pngList = lookForFiles(*(myData.getPath()), PNG_EXTENSION);
-		list<Tile>* tileList = generateTileList(*pngList);
+		list<Tile>* pngTileList = generateTileList(*pngList);
 
 		for (path t : *pngList)
 		{
@@ -47,10 +47,12 @@ int main(int argc, const char *argv[])
 		{
 			decompress(t);
 		}
+		list<Tile>* edaTileList = generateTileList(*edaList, IMG_EDA_FILE);
 
 		delete edaList;
 		delete pngList;
-		delete tileList;
+		delete pngTileList;
+		delete edaTileList;
 	}
 
 	else if (parseResult == JUST_PATH && myData.isPathFull())	//en este caso solamente se ingreso path
@@ -72,9 +74,9 @@ int main(int argc, const char *argv[])
 
 	system("pause");
 	return 0;
-}
+}*/
 
-*/
+
 /*PRUEBA PARA COMPRESOR*/
 /*
 int main(void)
