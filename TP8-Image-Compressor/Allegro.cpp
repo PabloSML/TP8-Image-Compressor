@@ -184,7 +184,7 @@ unsigned int Allegro::GetDisplayH()
 	return display_h;
 }
 
-void Allegro::drawImage(ALLEGRO_BITMAP* image, int x, int y, int width = 0, int height = 0)
+void Allegro::drawImage(ALLEGRO_BITMAP* image, int x, int y, int width , int height )
 {
 	if ((width <= 0) || (height <= 0))
 	{

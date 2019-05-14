@@ -10,6 +10,7 @@
 #include "Callback.h"
 #include "lodepng.h"
 #include "Filesystem.h"
+#include "Menu.h"
 #include "Tile.h"
 #include "Compressor.h"
 #include "Decompressor.h"
@@ -24,7 +25,7 @@ using namespace std;
 
 
 //***********************************  MAIN  *******************************************
-
+/*
 int main(int argc, const char *argv[])
 {
 	userData myData;
@@ -72,6 +73,8 @@ int main(int argc, const char *argv[])
 	system("pause");
 	return 0;
 }
+
+*/
 /*PRUEBA PARA COMPRESOR*/
 /*
 int main(void)
@@ -90,3 +93,12 @@ int main(void)
 	getchar();
 	return 0;
 }*/
+ /*prueba allegro*/
+int main()
+{
+	Allegro al_display;
+	Menu menu(&al_display);
+	std::cout << menu.GetMode() << std::endl;
+
+	getchar();
+}

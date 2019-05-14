@@ -124,7 +124,7 @@ void Pages::selectTile(int pos_)
 		if ((pos.posz == z) && (pos.posx == x) && (pos.posy == y))
 		{
 			if (it->isSelected())
-				it->unSelect;
+				it->unSelect();
 			else
 				it->select();
 		}
@@ -144,7 +144,7 @@ enum pages_result Pages::mouse_handler(display_pos pos)
 		else if ((pos.x >= 550 * scale_x) && (pos.x <= 750 * scale_x))
 		{
 			SelectAll();
-			UpdatePage;
+			UpdatePage();
 			return r_null;
 		}
 		else if ((pos.x >= 950 * scale_x) && (pos.x <= 1150 * scale_x))

@@ -39,13 +39,13 @@
     <ClInclude Include="Decompressor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Allegro.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Pages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Allegro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,13 +77,13 @@
     <ClCompile Include="Decompressor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Allegro.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Pages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Allegro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
