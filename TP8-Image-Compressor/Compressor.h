@@ -7,4 +7,4 @@
 using namespace std;
 using namespace boost::filesystem;
 
-bool compress(path& image, int threshold);
+bool compress(path& image, float threshold);

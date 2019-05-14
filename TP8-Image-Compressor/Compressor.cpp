@@ -3,9 +3,9 @@
 #define PIXEL_SIZE 4
 #define MAX_THRESHOLD (255*3)
 
-static int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold, string& output_string, unsigned int wmin, unsigned int hmin, unsigned int side);
+static int compressor(unsigned char* out, unsigned int w, unsigned int h, float threshold, string& output_string, unsigned int wmin, unsigned int hmin, unsigned int side);
 
-bool compress(path& image, int threshold)
+bool compress(path& image, float threshold)
 {
 	bool ret = false;
 	unsigned int w, h, side;
@@ -48,7 +48,7 @@ bool compress(path& image, int threshold)
 	return ret;
 }
 
-static int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold, string& output_string, unsigned int wmin, unsigned int hmin, unsigned int side)
+static int compressor(unsigned char* out, unsigned int w, unsigned int h, float threshold, string& output_string, unsigned int wmin, unsigned int hmin, unsigned int side)
 {
 	unsigned char r=0, g=0, b=0, rmax=0, rmin=255, gmax=0, gmin=255, bmax=0, bmin=255;
 	int pixel_count = 0, rprom = 0, gprom = 0, bprom = 0;
