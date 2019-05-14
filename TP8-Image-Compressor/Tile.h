@@ -34,7 +34,7 @@ public:
 	string getName(void);
 	const char* getOgPath(void);
 
-	void draw(Allegro* pAllegro, ALLEGRO_BITMAP* image = NULL);
+	void draw(Allegro* pAllegro, ALLEGRO_BITMAP* selected, ALLEGRO_BITMAP* image = NULL);
 
 	position GetPos(void);
 

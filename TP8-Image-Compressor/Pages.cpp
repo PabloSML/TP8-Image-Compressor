@@ -62,6 +62,7 @@ enum pages_result Pages::SelectImages()
 				done = true;
 				break;
 			case ev_all:
+				std::cout << "all" << std::endl;
 				SelectAll();
 				UpdatePage();
 				break;
@@ -261,9 +262,11 @@ void Pages::UpdatePage()
 	pAllegro->drawImage(back2menu, 150 * scale_x, 50 * scale_y, 200 * scale_x, 100 * scale_y);
 	pAllegro->drawImage(select[0], 550 * scale_x, 50 * scale_y, 200 * scale_x, 100 * scale_y);
 	pAllegro->drawImage(select[1], 950 * scale_x, 50 * scale_y, 200 * scale_x, 100 * scale_y);
-	pAllegro->drawImage(arrow[0], 150 * scale_x, 1450 * scale_y, 200 * scale_x, 100 * scale_y);
+	if(pagenum!=0)
+		pAllegro->drawImage(arrow[0], 150 * scale_x, 1450 * scale_y, 200 * scale_x, 100 * scale_y);
 	pAllegro->drawImage(done, 550 * scale_x, 1450 * scale_y, 200 * scale_x, 100 * scale_y);
-	pAllegro->drawImage(arrow[1], 950 * scale_x, 1450 * scale_y, 200 * scale_x, 100 * scale_y);
+	if(pagenum!=totalpages)
+		pAllegro->drawImage(arrow[1], 950 * scale_x, 1450 * scale_y, 200 * scale_x, 100 * scale_y);
 
 	if (mode == p_comp)
 	{
@@ -273,7 +276,11 @@ void Pages::UpdatePage()
 		{
 			position pos = it->GetPos();
 			if (pos.posz == pagenum)
-				it->draw(pAllegro);
+			{
+				it->draw(pAllegro,selected,edafile);
+				
+					
+			}
 		}
 	}
 	else if(mode == p_decomp)
@@ -284,7 +291,7 @@ void Pages::UpdatePage()
 		{
 			position pos = it->GetPos();
 			if (pos.posz == pagenum)
-				it->draw(pAllegro, edafile);
+				it->draw(pAllegro, selected, edafile);
 		}
 	}
 	pAllegro->updateDisplay();

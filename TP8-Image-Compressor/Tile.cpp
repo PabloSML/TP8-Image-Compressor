@@ -36,7 +36,7 @@ const char* Tile::getOgPath(void)
 	return originalPath;
 }
 
-void Tile::draw(Allegro* pAllegro, ALLEGRO_BITMAP* image)
+void Tile::draw(Allegro* pAllegro, ALLEGRO_BITMAP* selected,ALLEGRO_BITMAP* image)
 {
 	int scale_x = pAllegro->GetDisplayW() / DISPLAY_W;
 	int scale_y = pAllegro->GetDisplayH() / DISPLAY_H;
@@ -78,6 +78,10 @@ void Tile::draw(Allegro* pAllegro, ALLEGRO_BITMAP* image)
 	{
 		pAllegro->drawImage(this->image, x*scale_x, y*scale_y, 300 * scale_x, 250 * scale_y);
 
+	}
+	if (this->isSelected())
+	{
+		pAllegro->drawImage(selected, (x - 10)*scale_x, (y - 10)*scale_y, 320 * scale_x, 270 * scale_y);
 	}
 
 }
