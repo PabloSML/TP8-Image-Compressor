@@ -104,20 +104,9 @@ void Pages::selectTile(int pos_)
 		return;
 	}
 	int z = pagenum;
-	int x = 0;
-	int y = 0;
-	for (int counter = pos_; counter > 0; counter--)
-	{
-		if (x > 2)
-		{
-			x = 0;
-			y++;
-		}
-		else
-		{
-			x++;
-		}
-	}
+	int x = pos_ % 3;
+	int y = (pos_ / 3) - 3 * pagenum;
+
 	std::list<Tile>::iterator it;
 	for (it = pTile->begin(); it != pTile->end(); ++it)
 	{
