@@ -24,7 +24,7 @@ using namespace std;
 
 
 //***********************************  MAIN  *******************************************
-
+/*
 int main(int argc, const char *argv[])
 {
 	userData myData;
@@ -38,8 +38,8 @@ int main(int argc, const char *argv[])
 
 		list<path>::iterator itr = pngList->begin();
 		path temp = *itr;
-		list<path> dump;
-		compress(temp, myData.getThreshold(), dump);
+		//list<path> dump;
+		compress(temp, myData.getThreshold());
 
 		delete pngList;
 		delete tileList;
@@ -63,16 +63,17 @@ int main(int argc, const char *argv[])
 
 	system("pause");
 	return 0;
-}
+}*/
 /*PRUEBA PARA COMPRESOR*/
-/*
+
 int main(void)
 {
-	boost::filesystem::path file = ("C:\\Users\\Agustín M\\source\\repos\\PabloSML\\TP8-Image-Compressor\\descarga.png");
+	boost::filesystem::path file = ("C:\\Users\\Agustín M\\source\\repos\\PabloSML\\TP8-Image-Compressor\\maluposta.png");
 	//list<boost::filesystem::path> lista;
 	if (boost::filesystem::is_regular_file(file))
 	{
-		compress(file, 100);
+		compress(file, 34);
+		//decompress(file);
 	}
 	else
 	{
@@ -81,4 +82,4 @@ int main(void)
 	cout << "press enter";
 	getchar();
 	return 0;
-}*/
+}
