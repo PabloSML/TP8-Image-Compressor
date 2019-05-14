@@ -107,19 +107,47 @@ int main(int argc, const char *argv[])
 	list<path>* pngList;
 	list<Tile>* tileList;
 	list<path>* edaList;
-	list<Tile>* edatileList;
+	list<Tile>* edaTileList;
 
-	std::cout << menu.GetMode() << std::endl;
+	//std::cout << menu.GetMode() << std::endl;
 	enum menu_modes mode = menu.GetMode();
 	if (mode == mode_compress)
 	{
 		pngList = lookForFiles(*(myData.getPath()), PNG_EXTENSION);
 		tileList = generateTileList(*pngList);
+		Pages page(tileList, p_comp, &al_display);
+		enum pages_result result = page.SelectImages();
+		if (result== r_sucess)
+		{
+			cout << "success" << endl;
+		}
+		else if (result== r_quit)
+			cout << "quit" << endl;
+		delete pngList;
+		delete tileList;
 	}
 	else if (mode == mode_decompress)
 	{
-		 lookForFiles(*(myData.getPath()), EDA_EXTENSION);
+		 edaList=lookForFiles(*(myData.getPath()), EDA_EXTENSION);
+		 edaTileList = generateTileList(*edaList, IMG_EDA_FILE);
+		 Pages page(edaTileList, p_decomp, &al_display);
+		 enum pages_result result = page.SelectImages();
+		 if (result == r_sucess)
+		 {
+			 cout << "success" << endl;
+		 }
+		 else if (result == r_quit)
+			 cout << "quit" << endl;
+		 delete edaList;
+		 delete edaTileList;
 	}
 
+	cout << "got here" << endl;
+
+
+
 	getchar();
+	
+	
+		
 }

@@ -16,7 +16,7 @@ Pages::Pages(list<Tile>* ptile, enum page_mode mode, Allegro* pallegro)
 			totalpages = pos.posz;
 	}
 	font = al_load_ttf_font(TEXTFONT, PAGETEXTSIZE, 0);
-	ALLEGRO_BITMAP* done;
+	//ALLEGRO_BITMAP* done;
 	arrow[0] = al_load_bitmap(IMG_LEFT);
 	arrow[1] = al_load_bitmap(IMG_RIGHT);
 	select[0] = al_load_bitmap(IMG_S_ALL);
@@ -273,7 +273,7 @@ void Pages::UpdatePage()
 		{
 			position pos = it->GetPos();
 			if (pos.posz == pagenum)
-				it->draw(pAllegro,edafile);
+				it->draw(pAllegro);
 		}
 	}
 	else if(mode == p_decomp)
@@ -284,7 +284,7 @@ void Pages::UpdatePage()
 		{
 			position pos = it->GetPos();
 			if (pos.posz == pagenum)
-				it->draw(pAllegro);
+				it->draw(pAllegro, edafile);
 		}
 	}
 	pAllegro->updateDisplay();
