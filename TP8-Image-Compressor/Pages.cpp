@@ -277,7 +277,7 @@ void Pages::UpdatePage()
 			position pos = it->GetPos();
 			if (pos.posz == pagenum)
 			{
-				it->draw(pAllegro,selected,edafile);
+				it->draw(pAllegro,selected);
 				
 					
 			}

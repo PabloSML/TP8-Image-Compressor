@@ -30,7 +30,7 @@ string Tile::getName(void)
 	return name;
 }
 
-void Tile::draw(Allegro* pAllegro, ALLEGRO_BITMAP* image)
+void Tile::draw(Allegro* pAllegro, ALLEGRO_BITMAP* selected, ALLEGRO_BITMAP* image)
 {
 	int scale_x = pAllegro->GetDisplayW() / DISPLAY_W;
 	int scale_y = pAllegro->GetDisplayH() / DISPLAY_H;
