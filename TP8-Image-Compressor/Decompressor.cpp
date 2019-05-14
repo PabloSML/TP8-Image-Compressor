@@ -1,6 +1,7 @@
 #include "Decompressor.h"
 #define NRGB_SIZE 4
-#define ALPHA 128
+#define ALPHA 255
+#define PNG_EXT ".png"
 
 static bool decompressor(string::iterator& itr, unsigned char* destImg, unsigned int w, unsigned int h, unsigned int wmin, unsigned int hmin, unsigned int side);
 
@@ -10,7 +11,7 @@ bool decompress(path& compressedImg)
 	std::ifstream is(compressedImg.string().c_str(), std::ifstream::binary);
 	if (is)
 	{
-		string temp = compressedImg.stem().string() + ".png";	// se genera el nombre del archivo descomprimido
+		string temp = compressedImg.replace_extension(PNG_EXT).string(); // se genera el nombre del archivo descomprimido
 		const char* newName = temp.c_str();
 		string bufferStr("");
 		int beg, end;
@@ -65,7 +66,7 @@ static bool decompressor(string::iterator& itr, unsigned char* destImg, unsigned
 				destImg[(i*side*NRGB_SIZE) + j] = red;		
 				destImg[(i*side*NRGB_SIZE) + j + 1] = green;
 				destImg[(i*side*NRGB_SIZE) + j + 2] = blue;
-				destImg[(i*side*NRGB_SIZE) + j + 3] = ALPHA;	// Arbitrary Alpha (128)
+				destImg[(i*side*NRGB_SIZE) + j + 3] = ALPHA;	// Arbitrary Alpha (255)
 			}
 		}
 	}

@@ -4,6 +4,7 @@ Tile::Tile(string name, const char* imagePath, position pos)
 {
 	selected = false;
 	this->name = name;
+	originalPath = imagePath;
 	this->pos = pos;
 	image = al_load_bitmap(imagePath);
 	if (!image)
@@ -30,51 +31,13 @@ string Tile::getName(void)
 	return name;
 }
 
-void Tile::draw(Allegro* pAllegro,ALLEGRO_BITMAP* image=NULL)
+const char* Tile::getOgPath(void)
 {
-	int scale_x = pAllegro->GetDisplayW() / DISPLAY_W;
-	int scale_y = pAllegro->GetDisplayH() / DISPLAY_H;
-	int x;
-	int y;
-	switch (pos.posx)
-	{
-	case 0:
-		x = 150;
-		break;
-	case 1:
-		x = 500;
-		break;
-	case 2:
-		x = 850;
-		break;
-	default:
-		std::cout << "Error: x>2" << std::endl;
-	}
-	switch (pos.posy)
-	{
-	case 0:
-		y = 350;
-		break;
-	case 1:
-		y = 700;
-		break;
-	case 2:
-		y = 1050;
-		break;
-	default:
-		std::cout << "Error: y>2" << std::endl;
-	}
-	if (image != NULL)
-	{
-		pAllegro->drawImage(image, x*scale_x, y*scale_y, 300 * scale_x, 250 * scale_y);
-	}
-	else
-	{
-		pAllegro->drawImage(this->image, x*scale_x, y*scale_y, 300 * scale_x, 250 * scale_y);
-
-	}
-
+	return originalPath;
 }
+
+void Tile::draw(void)
+{
 
 position Tile::GetPos(void)
 {
