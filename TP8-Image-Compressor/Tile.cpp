@@ -1,9 +1,10 @@
 #include "Tile.h"
 
-Tile::Tile(string name, string imagePath, position pos)
+Tile::Tile(string name, path orgPath ,string imagePath, position pos)
 {
 	selected = false;
 	this->name = name;
+	this->orgPath = orgPath;
 	this->pos = pos;
 	image = al_load_bitmap(imagePath.c_str());
 	if (!image)
@@ -96,13 +97,14 @@ list<Tile>* generateTileList(list<path>& pathList)	// para tiles de .png
 	for (int i = 0; i < pathList.size(); i++, pathItr++)
 	{
 		string tempName = pathItr->filename().string();
-		string tempPath = pathItr->string();
+		path tempPath(pathItr->string());
+		string tempImgPath = pathItr->string();
 		position tempPos;
 		tempPos.posx = i % 3;
 		tempPos.posz = i / 9;
 		tempPos.posy = (i / 3) - 3 * tempPos.posz;
 
-		Tile tempTile(tempName, tempPath, tempPos);
+		Tile tempTile(tempName, tempPath,tempImgPath, tempPos);
 
 		tempTileList->push_back(tempTile);
 	}
@@ -117,12 +119,13 @@ list<Tile>* generateTileList(list<path>& pathList, const char* defaultImg) // pa
 	for (int i = 0; i < pathList.size(); i++, pathItr++)
 	{
 		string tempName = pathItr->filename().string();
+		path tempPath(pathItr->string());
 		position tempPos;
 		tempPos.posx = i % 3;
 		tempPos.posz = i / 9;
 		tempPos.posy = (i / 3) - 3 * tempPos.posz;
 
-		Tile tempTile(tempName, defaultImg, tempPos);
+		Tile tempTile(tempName, tempPath, string(defaultImg), tempPos);
 
 		tempTileList->push_back(tempTile);
 	}

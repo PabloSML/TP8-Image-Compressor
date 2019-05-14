@@ -24,13 +24,14 @@ public:
 		pos.posx = pos.posy = pos.posz = NULL;
 	}
 
-	Tile(string name, string imagePath, position pos);
+	Tile(string name, path orgPath, string imagePath, position pos);
 
 	void select(void);
 	void unSelect(void);
 	bool isSelected(void);
 
 	string getName(void);
+	path getPath(void) { return orgPath; }
 
 	void draw(Allegro* pAllegro, ALLEGRO_BITMAP* selected, ALLEGRO_BITMAP* image = NULL);
 
@@ -39,6 +40,7 @@ public:
 private:
 	bool selected;
 	string name;
+	path orgPath;
 	ALLEGRO_BITMAP* image;
 	position pos;
 };
