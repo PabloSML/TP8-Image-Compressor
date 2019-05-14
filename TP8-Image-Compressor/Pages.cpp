@@ -62,7 +62,6 @@ enum pages_result Pages::SelectImages()
 				done = true;
 				break;
 			case ev_all:
-				std::cout << "all" << std::endl;
 				SelectAll();
 				UpdatePage();
 				break;

@@ -54,10 +54,11 @@ int main(int argc, const char *argv[])
 					const char* message = "Please input valid threshold percentage (0% - 100%) in terminal";
 					ALLEGRO_FONT* tempFont = al_load_ttf_font(TEXTFONT, al_display.GetDisplayH()*0.02, 0);
 					al_display.setDisplayColor(0, 0, 0);
-					al_display.printText(message, al_display.GetDisplayH() / 2, al_display.GetDisplayW() / 2, align::center, tempFont);
+					al_display.printText(message, al_display.GetDisplayW() /2 , al_display.GetDisplayH() /2, align::center, tempFont);
 					al_display.updateDisplay();
 					cout << "Please input valid threshold" << endl;
 					cin >> temp;
+
 					if (temp >= 0.0 && temp <= 100.0)
 						myData.setThreshold(temp);
 				}
