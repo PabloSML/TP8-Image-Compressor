@@ -1,6 +1,6 @@
 #include "Decompressor.h"
 #define NRGB_SIZE 4
-#define ALPHA 128
+#define ALPHA 255
 
 static bool decompressor(string::iterator& itr, unsigned char* destImg, unsigned int w, unsigned int h, unsigned int wmin, unsigned int hmin, unsigned int side);
 

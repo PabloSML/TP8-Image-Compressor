@@ -36,16 +36,16 @@ int main(int argc, const char *argv[])
 		list<path>* pngList = lookForFiles(*(myData.getPath()), PNG_EXTENSION);
 		list<Tile>* tileList = generateTileList(*pngList);
 
-		list<path>::iterator itr1 = pngList->begin();
-		path temp1 = *itr1;
-		list<path> dump;
-		compress(temp1, myData.getThreshold());
+		for (path t : *pngList)
+		{
+			compress(t, myData.getThreshold());
+		}
 
 		list<path>* edaList = lookForFiles(*(myData.getPath()), EDA_EXTENSION);
-		list<path>::iterator itr2 = edaList->begin();
-		path temp2 = *itr2;
-		decompress(temp2);
-
+		for (path t : *edaList)
+		{
+			decompress(t);
+		}
 
 		delete edaList;
 		delete pngList;
@@ -56,9 +56,10 @@ int main(int argc, const char *argv[])
 	{
 		cout << "Se recibio el path" << endl;
 		list<path>* edaList = lookForFiles(*(myData.getPath()), EDA_EXTENSION);
-		list<path>::iterator itr = edaList->begin();
-		path temp = *itr;
-		decompress(temp);
+		for (path t : *edaList)
+		{
+			decompress(t);
+		}
 
 		delete edaList;
 	}

@@ -98,9 +98,6 @@ static int compressor(unsigned char* out, unsigned int w, unsigned int h, int th
 	gprom = gprom / pixel_count;
 	bprom = bprom / pixel_count;
 
-
-	cout << "MAX " << "R "<<to_string(rmax) <<" G "<< to_string(gmax) <<" B "<< to_string(bmax) << endl;
-	cout<< "MIN " <<"R " <<to_string(rmin) <<" G "<< to_string(gmin) <<" B "<< to_string(bmin) << endl;
 	int weight= (rmax - rmin) + (gmax - gmin) + (bmax - bmin);
 	
 	if (weight > threshold)
