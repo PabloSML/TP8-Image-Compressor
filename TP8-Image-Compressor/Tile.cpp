@@ -1,12 +1,11 @@
 #include "Tile.h"
 
-Tile::Tile(string name, const char* imagePath, position pos)
+Tile::Tile(string name, string imagePath, position pos)
 {
 	selected = false;
 	this->name = name;
-	originalPath = imagePath;
 	this->pos = pos;
-	image = al_load_bitmap(imagePath);
+	image = al_load_bitmap(imagePath.c_str());
 	if (!image)
 		cout << "Failed to load drawable bitmap!" << endl;
 }
@@ -31,12 +30,7 @@ string Tile::getName(void)
 	return name;
 }
 
-const char* Tile::getOgPath(void)
-{
-	return originalPath;
-}
-
-void Tile::draw(Allegro* pAllegro, ALLEGRO_BITMAP* selected,ALLEGRO_BITMAP* image)
+void Tile::draw(Allegro* pAllegro, ALLEGRO_BITMAP* image)
 {
 	int scale_x = pAllegro->GetDisplayW() / DISPLAY_W;
 	int scale_y = pAllegro->GetDisplayH() / DISPLAY_H;
@@ -101,13 +95,13 @@ list<Tile>* generateTileList(list<path>& pathList)	// para tiles de .png
 	for (int i = 0; i < pathList.size(); i++, pathItr++)
 	{
 		string tempName = pathItr->filename().string();
-		const char* tempImgPath = pathItr->string().c_str();
+		string tempPath = pathItr->string();
 		position tempPos;
 		tempPos.posx = i % 3;
 		tempPos.posz = i / 9;
 		tempPos.posy = (i / 3) - 3 * tempPos.posz;
 
-		Tile tempTile(tempName, tempImgPath, tempPos);
+		Tile tempTile(tempName, tempPath, tempPos);
 
 		tempTileList->push_back(tempTile);
 	}
