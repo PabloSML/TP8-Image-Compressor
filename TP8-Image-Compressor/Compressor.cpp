@@ -1,4 +1,5 @@
 #include "Compressor.h"
+#define EDA_EXT ".eda"
 
 static int compressor(unsigned char* out, unsigned int w, unsigned int h, int threshold, string& output_string, unsigned int wmin, unsigned int hmin, unsigned int side);
 
@@ -26,7 +27,7 @@ bool compress(path& image, int threshold)
 
 	if (!error)
 	{
-		path out_file (image.replace_extension(".eda"));	 //creo el path con nombre "imagen.eda"
+		path out_file (image.replace_extension(EDA_EXT));	 //creo el path con nombre "imagen.eda"
 		cout << "Created path to " << out_file.filename() << endl;
 		boost::filesystem::ofstream os(out_file, boost::filesystem::ofstream::binary);
 		if (os)
