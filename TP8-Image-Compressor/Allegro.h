@@ -12,7 +12,7 @@
 
 enum al_event {	ev_null, ev_quit, 
 				ev_tile1, ev_tile2, ev_tile3, ev_tile4,ev_tile5, ev_tile6, ev_tile7, ev_tile8, ev_tile9,
-				ev_enter,ev_mode_comp, ev_mode_decomp, ev_right, ev_left, ev_all, ev_none,
+				ev_enter,ev_mode_comp, ev_mode_decomp, ev_right, ev_left, ev_all, ev_none, ev_menu,
 				ev_mouse};
 
 enum align {center, right, left};
@@ -39,7 +39,7 @@ public:
 	unsigned int GetDisplayW();
 	unsigned int GetDisplayH();
 
-	void drawImage(ALLEGRO_BITMAP* image, int x, int y, int scale_x = 0, int scale_y = 0);
+	void drawImage(ALLEGRO_BITMAP* image, int x, int y, int width = 0, int height = 0);
 	display_pos GetMousePos();
 
 private:

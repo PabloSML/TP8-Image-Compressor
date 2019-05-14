@@ -140,22 +140,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Allegro.h" />
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Compressor.h" />
     <ClInclude Include="Decompressor.h" />
     <ClInclude Include="Filesystem.h" />
     <ClInclude Include="lodepng.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Pages.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="UserData.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Allegro.cpp" />
     <ClCompile Include="Callback.cpp" />
     <ClCompile Include="Compressor.cpp" />
     <ClCompile Include="Decompressor.cpp" />
     <ClCompile Include="Filesystem.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Pages.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="UserData.cpp" />

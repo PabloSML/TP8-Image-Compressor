@@ -132,6 +132,9 @@ enum al_event Allegro::getNextEvent(void)
 		case ALLEGRO_KEY_N:
 			return ev_none;
 			break;
+		case ALLEGRO_KEY_M:
+			return ev_menu;
+			break;
 		case ALLEGRO_KEY_Q:
 			return ev_quit;
 			break;
@@ -181,15 +184,15 @@ unsigned int Allegro::GetDisplayH()
 	return display_h;
 }
 
-void Allegro::drawImage(ALLEGRO_BITMAP* image, int x, int y, int scale_x = 0, int scale_y = 0)
+void Allegro::drawImage(ALLEGRO_BITMAP* image, int x, int y, int width , int height )
 {
-	if ((scale_x <= 0) || (scale_y <= 0))
+	if ((width <= 0) || (height <= 0))
 	{
 		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), x, y, al_get_bitmap_width(image), al_get_bitmap_height(image), 0);
 	}
 	else
 	{
-		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), x, y, al_get_bitmap_width(image)*scale_x, al_get_bitmap_width(image)*scale_y, 0);
+		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), x, y, width, height, 0);
 	}
 }
 

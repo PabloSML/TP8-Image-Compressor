@@ -39,17 +39,22 @@ enum menu_modes Menu::GetMode()
 			break;
 		case ev_mode_comp:
 			mode = mode_compress;
-			UpdateMenu();
+			done = true;
+			//UpdateMenu();
 			break;
 		case ev_mode_decomp:
 			mode = mode_decompress;
-			UpdateMenu();
+			done = true;
+			//UpdateMenu();
 			break;
 		case ev_mouse:
 			enum menu_modes m = mouse_handler(pAllegro->GetMousePos());
 			if (m != unselected)
+			{
 				mode = m;
-			done = true;
+				done = true;
+			}
+			break;
 		}
 
 	}
@@ -66,9 +71,9 @@ void Menu::UpdateMenu()
 	//al_draw_bitmap(bitmap[0], 400, 700, 0);
 	//al_draw_bitmap(bitmap[1], 400, 1150, 0);
 
-	pAllegro->drawImage(bitmap[0], 400 * scale_x, 700 * scale_y, scale_x, scale_y);
-	pAllegro->drawImage(bitmap[1], 400 * scale_x, 1150 * scale_y, scale_x, scale_y);
-
+	pAllegro->drawImage(bitmap[0], 400 * scale_x, 700 * scale_y, 500*scale_x, 200*scale_y);
+	pAllegro->drawImage(bitmap[1], 400 * scale_x, 1150 * scale_y, 500 * scale_x, 200 * scale_y);
+	/*
 	switch (mode)
 	{
 	case mode_compress:
@@ -78,6 +83,7 @@ void Menu::UpdateMenu()
 		pAllegro->drawImage(select, (400-10) * scale_x, (1150-10) * scale_y, scale_x, scale_y);
 		break;
 	}
+	*/
 
 	pAllegro->updateDisplay();
 }

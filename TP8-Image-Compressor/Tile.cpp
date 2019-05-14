@@ -36,10 +36,57 @@ const char* Tile::getOgPath(void)
 	return originalPath;
 }
 
-void Tile::draw(void)
+void Tile::draw(Allegro* pAllegro, ALLEGRO_BITMAP* image)
 {
+	int scale_x = pAllegro->GetDisplayW() / DISPLAY_W;
+	int scale_y = pAllegro->GetDisplayH() / DISPLAY_H;
+	int x;
+	int y;
+	switch (pos.posx)
+	{
+	case 0:
+		x = 150;
+		break;
+	case 1:
+		x = 500;
+		break;
+	case 2:
+		x = 850;
+		break;
+	default:
+		std::cout << "Error: x>2" << std::endl;
+	}
+	switch (pos.posy)
+	{
+	case 0:
+		y = 350;
+		break;
+	case 1:
+		y = 700;
+		break;
+	case 2:
+		y = 1050;
+		break;
+	default:
+		std::cout << "Error: y>2" << std::endl;
+	}
+	if (image != NULL)
+	{
+		pAllegro->drawImage(image, x*scale_x, y*scale_y, 300 * scale_x, 250 * scale_y);
+	}
+	else
+	{
+		pAllegro->drawImage(this->image, x*scale_x, y*scale_y, 300 * scale_x, 250 * scale_y);
+
+	}
 
 }
+
+position Tile::GetPos(void)
+{
+	return pos;
+}
+
 
 //************************************************************ FUNCIONES AUXILIARES ******************
 list<Tile>* generateTileList(list<path>& pathList)	// para tiles de .png
