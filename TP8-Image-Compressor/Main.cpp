@@ -2,7 +2,6 @@
 #include <iostream>
 #include <iterator>
 #include <list>
-//#include <algorithm> no se como se usa, puede servir para el Quad Tree
 #include <string>
 #include <boost/filesystem.hpp>
 #include "UserData.h"
@@ -14,6 +13,7 @@
 #include "Tile.h"
 #include "Compressor.h"
 #include "Decompressor.h"
+#include "Pages.h"
 using namespace std;
 //***********************************  DEFINES  *******************************************
 #define PATH_AND_THRESHOLD 2
@@ -37,17 +37,17 @@ int main(int argc, const char *argv[])
 		list<path>* pngList = lookForFiles(*(myData.getPath()), PNG_EXTENSION);
 		list<Tile>* pngTileList = generateTileList(*pngList);
 
-		/*for (path t : *pngList)
+		for (path t : *pngList)
 		{
 			compress(t, myData.getThreshold());
-		}*/
+		}
 
 		list<path>* edaList = lookForFiles(*(myData.getPath()), EDA_EXTENSION);
-		/*for (path t : *edaList)
+		for (path t : *edaList)
 		{
 			decompress(t);
-		}*/
-		list<Tile>* edaTileList = generateTileList(*edaList, );
+		}
+		list<Tile>* edaTileList = generateTileList(*edaList, IMG_EDA_FILE);
 
 		delete edaList;
 		delete pngList;
@@ -74,9 +74,9 @@ int main(int argc, const char *argv[])
 
 	system("pause");
 	return 0;
-}
+}*/
 
-*/
+
 /*PRUEBA PARA COMPRESOR*/
 /*
 int main(void)
