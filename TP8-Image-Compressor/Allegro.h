@@ -8,7 +8,7 @@
 #define DISPLAY_H	1700
 #define DISPLAY_W	1300
 #define TEXTFONT "allegrofiles\\textfont.ttf"
-#define TEXTSIZE 50
+#define TEXTSIZE 30
 
 enum al_event {	ev_null, ev_quit, 
 				ev_tile1, ev_tile2, ev_tile3, ev_tile4,ev_tile5, ev_tile6, ev_tile7, ev_tile8, ev_tile9,

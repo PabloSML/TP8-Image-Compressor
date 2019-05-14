@@ -77,6 +77,7 @@ void Tile::draw(Allegro* pAllegro, ALLEGRO_BITMAP* selected, ALLEGRO_BITMAP* ima
 	{
 		pAllegro->drawImage(selected, (x - 10)*scale_x, (y - 10)*scale_y, 320 * scale_x, 270 * scale_y);
 	}
+	pAllegro->printText(name.c_str(), x*scale_x, (y + 250 + 10)*scale_y, align::left);
 
 }
 
