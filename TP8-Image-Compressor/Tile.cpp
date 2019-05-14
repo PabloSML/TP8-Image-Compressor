@@ -4,6 +4,7 @@ Tile::Tile(string name, const char* imagePath, position pos)
 {
 	selected = false;
 	this->name = name;
+	originalPath = imagePath;
 	this->pos = pos;
 	image = al_load_bitmap(imagePath);
 	if (!image)
@@ -28,6 +29,11 @@ bool Tile::isSelected(void)
 string Tile::getName(void)
 {
 	return name;
+}
+
+const char* Tile::getOgPath(void)
+{
+	return originalPath;
 }
 
 void Tile::draw(void)

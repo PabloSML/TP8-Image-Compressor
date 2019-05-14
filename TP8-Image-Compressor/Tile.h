@@ -19,6 +19,7 @@ public:
 	Tile() {
 		selected = false;
 		name = string("");
+		originalPath = nullptr;
 		image = nullptr;
 		pos.posx = pos.posy = pos.posz = NULL;
 	}
@@ -30,12 +31,14 @@ public:
 	bool isSelected(void);
 
 	string getName(void);
+	const char* getOgPath(void);
 
 	void draw(void);
 
 private:
 	bool selected;
 	string name;
+	const char* originalPath;
 	ALLEGRO_BITMAP* image;
 	position pos;
 };
